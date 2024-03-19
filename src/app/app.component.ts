@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { APIService } from './AmplifyAPI.service';
+import { AmplifyAPIService } from './AmplifyAPI.service';
 import { signIn } from 'aws-amplify/auth';
 import { Observable } from 'rxjs';
-import { OnCreateTodoSubscription } from './API.service';
+// import { OnCreateTodoSubscription } from './API.service';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -14,7 +14,7 @@ import { OnCreateTodoSubscription } from './API.service';
 export class AppComponent implements OnInit {
   public title = 'angular-amplified-services';
   // private subscription: Observable<OnCreateTodoSubscription> | null = null;
-  private api = new APIService();
+  private api = new AmplifyAPIService();
 
   async ngOnInit() {
     this.api.OnCreateTodoListener().subscribe({

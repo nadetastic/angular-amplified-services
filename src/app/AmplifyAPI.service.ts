@@ -12,7 +12,7 @@ const client = generateClient();
 @Injectable({
   providedIn: 'root',
 })
-export class APIService {
+export class AmplifyAPIService {
   async CreateTodo(
     input: AmplifyTypes.CreateTodoInput, //CreateTodoInput,
     condition?: AmplifyTypes.ModelTodoConditionInput
