@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AmplifyAPIService } from './AmplifyAPI.service';
 import { signIn } from 'aws-amplify/auth';
-import { Observable } from 'rxjs';
+import { Observable, Subscription, filter } from 'rxjs';
 // import { OnCreateTodoSubscription } from './API.service';
 @Component({
   selector: 'app-root',
@@ -11,17 +11,29 @@ import { Observable } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   public title = 'angular-amplified-services';
-  // private subscription: Observable<OnCreateTodoSubscription> | null = null;
+  // private subscription
+  private createsub: Subscription | null = null;
   private api = new AmplifyAPIService();
 
-  async ngOnInit() {
-    this.api.OnCreateTodoListener().subscribe({
-      next: (e) => console.log('next', e),
-      // complete: e => console.log('complete',e),
-      // error: console.log('Error')
+  ngOnInit() {
+    this.createsub = this.api.OnCreateTodoListener().subscribe({
+      next: (data) => {
+        console.log('next', data.data.onCreateTodo);
+      },
+      complete: () => console.log('Done'),
+      error: (e) => {
+        console.log('Error', e), this.createsub?.unsubscribe();
+      },
     });
+  }
+
+  ngOnDestroy() {
+    if (this.createsub) {
+      this.createsub.unsubscribe();
+    }
+    this.createsub = null;
   }
 
   public async getData() {

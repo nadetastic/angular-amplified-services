@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { generateClient } from 'aws-amplify/data';
+import { GraphQLSubscription, generateClient } from 'aws-amplify/data';
 import * as AmplifyTypes from './API.service';
 import * as queries from '../graphql/queries';
 import * as mutations from '../graphql/mutations';
 import * as subscriptions from '../graphql/subscriptions';
 
-import { Observable } from 'rxjs';
+import { ObservableInput } from 'rxjs';
 
 const client = generateClient();
 
@@ -25,7 +25,7 @@ export class AmplifyAPIService {
       },
     });
 
-    return <AmplifyTypes.CreateTodoMutation>result.data.createTodo;
+    return result.data;
   }
 
   async UpdateTodo(
@@ -39,7 +39,7 @@ export class AmplifyAPIService {
         condition: condition ? condition : null,
       },
     });
-    return <AmplifyTypes.UpdateTodoMutation>result.data.updateTodo;
+    return result.data;
   }
   async DeleteTodo(
     input: AmplifyTypes.DeleteTodoInput,
@@ -52,7 +52,7 @@ export class AmplifyAPIService {
         condition: condition ? condition : null,
       },
     });
-    return <AmplifyTypes.DeleteTodoMutation>result.data.deleteTodo;
+    return result.data;
   }
 
   async GetTodo(id: string): Promise<AmplifyTypes.GetTodoQuery> {
@@ -62,7 +62,7 @@ export class AmplifyAPIService {
         id: id,
       },
     });
-    return <AmplifyTypes.GetTodoQuery>result.data.getTodo;
+    return result.data;
   }
   async ListTodos(
     filter?: AmplifyTypes.ModelTodoFilterInput,
@@ -82,14 +82,15 @@ export class AmplifyAPIService {
   OnCreateTodoListener(
     filter?: AmplifyTypes.ModelSubscriptionTodoFilterInput,
     owner?: string
-  ): Observable<AmplifyTypes.OnCreateTodoSubscription> {
+  ) {
+    //ObservableInput<AmplifyTypes.OnCreateTodoSubscription> {
     return client.graphql({
       query: subscriptions.onCreateTodo,
       variables: {
         filter: filter ? filter : null,
         owner: owner ? owner : null,
       },
-    }) as Observable<AmplifyTypes.OnCreateTodoSubscription>;
+    }); //as Observable<AmplifyTypes.OnCreateTodoSubscription>;
     // .subscribe({
     //   next: (event: any) => {
     //     console.log('event', event);
