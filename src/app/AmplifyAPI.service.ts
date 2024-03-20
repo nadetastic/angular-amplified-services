@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
-import { GraphQLSubscription, generateClient } from 'aws-amplify/data';
+import { generateClient } from 'aws-amplify/data';
 import * as AmplifyTypes from './API.service';
 import * as queries from '../graphql/queries';
 import * as mutations from '../graphql/mutations';
 import * as subscriptions from '../graphql/subscriptions';
-
-import { ObservableInput, Subscription } from 'rxjs';
 
 const client = generateClient();
 
