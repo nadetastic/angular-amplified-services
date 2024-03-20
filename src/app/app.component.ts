@@ -2,8 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AmplifyAPIService } from './AmplifyAPI.service';
 import { signIn } from 'aws-amplify/auth';
-import { Observable, Subscription, filter } from 'rxjs';
-// import { OnCreateTodoSubscription } from './API.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-root',
   standalone: true,

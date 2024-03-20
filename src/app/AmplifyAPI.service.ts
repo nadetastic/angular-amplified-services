@@ -5,7 +5,7 @@ import * as queries from '../graphql/queries';
 import * as mutations from '../graphql/mutations';
 import * as subscriptions from '../graphql/subscriptions';
 
-import { ObservableInput } from 'rxjs';
+import { ObservableInput, Subscription } from 'rxjs';
 
 const client = generateClient();
 
@@ -83,81 +83,38 @@ export class AmplifyAPIService {
     filter?: AmplifyTypes.ModelSubscriptionTodoFilterInput,
     owner?: string
   ) {
-    //ObservableInput<AmplifyTypes.OnCreateTodoSubscription> {
     return client.graphql({
       query: subscriptions.onCreateTodo,
       variables: {
         filter: filter ? filter : null,
         owner: owner ? owner : null,
       },
-    }); //as Observable<AmplifyTypes.OnCreateTodoSubscription>;
-    // .subscribe({
-    //   next: (event: any) => {
-    //     console.log('event', event);
-    //   },
-    //   complete: () => console.log('complete', event),
-    // });
+    });
   }
 
-  // OnUpdateTodoListener(
-  //   filter?: ModelSubscriptionTodoFilterInput,
-  //   owner?: string
-  // ): Observable<
-  //   SubscriptionResponse<Pick<__SubscriptionContainer, 'onUpdateTodo'>>
-  // > {
-  //   const statement = `subscription OnUpdateTodo($filter: ModelSubscriptionTodoFilterInput, $owner: String) {
-  //       onUpdateTodo(filter: $filter, owner: $owner) {
-  //         __typename
-  //         id
-  //         name
-  //         description
-  //         createdAt
-  //         updatedAt
-  //         owner
-  //       }
-  //     }`;
-  //   const gqlAPIServiceArguments: any = {};
-  //   if (filter) {
-  //     gqlAPIServiceArguments.filter = filter;
-  //   }
-  //   if (owner) {
-  //     gqlAPIServiceArguments.owner = owner;
-  //   }
-  //   return API.graphql(
-  //     graphqlOperation(statement, gqlAPIServiceArguments)
-  //   ) as Observable<
-  //     SubscriptionResponse<Pick<__SubscriptionContainer, 'onUpdateTodo'>>
-  //   >;
-  // }
+  OnUpdateTodoListener(
+    filter?: AmplifyTypes.ModelSubscriptionTodoFilterInput,
+    owner?: string
+  ) {
+    return client.graphql({
+      query: subscriptions.onUpdateTodo,
+      variables: {
+        filter: filter ? filter : null,
+        owner: owner ? owner : null,
+      },
+    });
+  }
 
-  // OnDeleteTodoListener(
-  //   filter?: ModelSubscriptionTodoFilterInput,
-  //   owner?: string
-  // ): Observable<
-  //   SubscriptionResponse<Pick<__SubscriptionContainer, 'onDeleteTodo'>>
-  // > {
-  //   const statement = `subscription OnDeleteTodo($filter: ModelSubscriptionTodoFilterInput, $owner: String) {
-  //       onDeleteTodo(filter: $filter, owner: $owner) {
-  //         __typename
-  //         id
-  //         name
-  //         description
-  //         createdAt
-  //         updatedAt
-  //         owner
-  //       }
-  //     }`;
-  //   const gqlAPIServiceArguments: any = {};
-  //   if (filter) {
-  //     gqlAPIServiceArguments.filter = filter;
-  //   }
-  //   if (owner) {
-  //     gqlAPIServiceArguments.owner = owner;
-  //   }
-  //   return API.graphql(
-  //     graphqlOperation(statement, gqlAPIServiceArguments)
-  //   ) as Observable<
-  //     SubscriptionResponse<Pick<__SubscriptionContainer, 'onDeleteTodo'>>
-  //   >;
-  // }
+  OnDeleteTodoListener(
+    filter?: AmplifyTypes.ModelSubscriptionTodoFilterInput,
+    owner?: string
+  ) {
+    return client.graphql({
+      query: subscriptions.onDeleteTodo,
+      variables: {
+        filter: filter ? filter : null,
+        owner: owner ? owner : null,
+      },
+    });
+  }
 }
